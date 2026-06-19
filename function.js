@@ -53,8 +53,20 @@ async function produktnameHolen(barcode) {
   return barcode; // Fallback: nichts gefunden -> Nummer behalten
 }
 
+// --- Hilfsfunktion: Anzeige eines Eintrags aktualisieren ---
+// Setzt den Text ("Nudeln" bzw. "Nudeln 2x") und blendet den Minus-Knopf
+// nur ein, wenn die Anzahl größer als 1 ist.
+function anzeigeAktualisieren(li) {
+  const anzahl = Number(li.dataset.anzahl);
+  const name   = li.dataset.name;
+  const span   = li.querySelector("span");
+  const minus  = li.querySelector(".minus");
+  if (span)  span.textContent = anzahl > 1 ? `${name} ${anzahl}x` : name;
+  if (minus) minus.style.display = anzahl > 1 ? "" : "none";
+}
+
 // --- Hilfsfunktion: einen Listeneintrag bauen und anzeigen ---
-function eintragHinzufuegen(inhalt, istBild, erledigt = false) {
+function eintragHinzufuegen(inhalt, istBild, erledigt = false, anzahl = 1) {
   const li = document.createElement("li");
 
   const box = document.createElement("input");
@@ -67,7 +79,9 @@ function eintragHinzufuegen(inhalt, istBild, erledigt = false) {
     anzeige.src = inhalt;
   } else {
     anzeige = document.createElement("span");
-    anzeige.textContent = inhalt;
+    // Name und Anzahl merken wir direkt am <li>
+    li.dataset.name   = inhalt;
+    li.dataset.anzahl = anzahl;
   }
 
   function stilAktualisieren() {
@@ -87,6 +101,24 @@ function eintragHinzufuegen(inhalt, istBild, erledigt = false) {
 
   li.appendChild(box);
   li.appendChild(anzeige);
+
+  // Minus-Knopf nur für Text-Einträge (Bilder werden nicht hochgezählt)
+  if (!istBild) {
+    const minus = document.createElement("button");
+    minus.className = "minus";
+    minus.textContent = "−";
+    minus.addEventListener("click", () => {
+      const n = Number(li.dataset.anzahl);
+      if (n > 1) {
+        li.dataset.anzahl = n - 1;   // runterzählen
+        anzeigeAktualisieren(li);
+        speichern();
+      }
+    });
+    li.appendChild(minus);
+    anzeigeAktualisieren(li); // Text + Minus-Sichtbarkeit setzen
+  }
+
   liste.appendChild(li);
 }
 
@@ -96,11 +128,12 @@ async function speichern() {
   liste.querySelectorAll("li").forEach((li) => {
     const box  = li.querySelector("input");
     const bild = li.querySelector("img");
-    const span = li.querySelector("span");
     daten.push({
       erledigt: box.checked,
       istBild: !!bild,
-      inhalt: bild ? bild.src : span.textContent
+      // Bei Text speichern wir den reinen Namen (nicht "Nudeln 2x"!) + die Anzahl
+      inhalt: bild ? bild.src : li.dataset.name,
+      anzahl: bild ? 1 : Number(li.dataset.anzahl)
     });
   });
   const text = JSON.stringify(daten);
@@ -121,7 +154,8 @@ async function laden() {
   }
   if (!text) return;
   JSON.parse(text).forEach((e) => {
-    eintragHinzufuegen(e.inhalt, e.istBild, e.erledigt);
+    // e.anzahl || 1  -> alte gespeicherte Listen ohne Anzahl funktionieren weiter
+    eintragHinzufuegen(e.inhalt, e.istBild, e.erledigt, e.anzahl || 1);
   });
 }
 
@@ -129,7 +163,18 @@ async function laden() {
 knopf.addEventListener("click", () => {
   const zutat = feld.value.trim();
   if (zutat !== "") {
-    eintragHinzufuegen(zutat, false);
+    // Gibt es diesen Text-Artikel schon? (Bilder zählen wir nicht zusammen)
+    const vorhanden = Array.from(liste.querySelectorAll("li")).find(
+      (li) => li.dataset.name === zutat && !li.querySelector("img")
+    );
+    if (vorhanden) {
+      // schon da -> nur hochzählen
+      vorhanden.dataset.anzahl = Number(vorhanden.dataset.anzahl) + 1;
+      anzeigeAktualisieren(vorhanden);
+    } else {
+      // neu -> normal anlegen
+      eintragHinzufuegen(zutat, false);
+    }
     feld.value = "";
     speichern();
   }
