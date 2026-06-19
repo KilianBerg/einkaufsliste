@@ -17,7 +17,7 @@
 //  EINSTELLUNGEN
 // ============================================================
 const SERVER_URL = "https://kilianberg.github.io/einkaufsliste"; // hier liegt das Bundle + version.json
-const MEINE_VERSION = "1.2";                       // Version DIESES Bundles (im Server-Bundle hochzählen!)
+const MEINE_VERSION = "1.3";                       // Version DIESES Bundles (im Server-Bundle hochzählen!)
 // ============================================================
 
 // --- native Plugins (nur in der App vorhanden) ---
