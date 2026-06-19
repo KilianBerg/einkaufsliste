@@ -1,19 +1,5 @@
 // updater.js – Eigenbau-OTA-Updater (wie Capgo, aber selbstgebaut)
 //
-// So funktioniert es – genau wie Capgo:
-//  - Capacitor lädt die App aus einem Ordner. Standard: der eingebaute "www"-Ordner.
-//  - Wir laden ein KOMPLETTES neues Bundle (inkl. index.html!) vom Webserver in einen
-//    Ordner auf dem Gerät und sagen dem WebView per nativem Befehl: "lade ab jetzt von dort".
-//  - Capacitor 8 bringt dafür das eingebaute Plugin "WebView" mit:
-//      WebView.setServerBasePath({path})  -> sofort umschalten + neu laden
-//      WebView.persistServerBasePath()    -> für die nächsten App-Starts merken
-//  - Bei einem echten App-Store-Update setzt Capacitor das automatisch zurück.
-//
-// WICHTIG: Der ganze Code steckt in einer IIFE — einer "(function(){ … })()". Dadurch sind
-// seine Variablen PRIVAT und kollidieren nicht mit denen aus function.js (z. B. "Network",
-// das beide nutzen). Ohne diese Kapselung bricht das zweite Skript mit
-// "Identifier 'Network' has already been declared" ab und läuft gar nicht.
-
 (function () {
   "use strict";
 
@@ -21,7 +7,7 @@
   //  EINSTELLUNGEN
   // ==========================================================
   const SERVER_URL = "https://kilianberg.github.io/einkaufsliste"; // Bundle + version.json
-  const MEINE_VERSION = "1.0";   // Version DIESES Bundles (im Server-Bundle hochzählen!)
+  const MEINE_VERSION = "1.3";   // Version DIESES Bundles (im Server-Bundle hochzählen!)
   // ==========================================================
 
   const Network    = window.Capacitor?.Plugins?.Network;
