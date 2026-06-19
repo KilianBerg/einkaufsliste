@@ -7,7 +7,7 @@
   //  EINSTELLUNGEN
   // ==========================================================
   const SERVER_URL = "https://kilianberg.github.io/einkaufsliste"; // Bundle + version.json
-  const MEINE_VERSION = "1.3";   // Version DIESES Bundles (im Server-Bundle hochzählen!)
+  const MEINE_VERSION = "1.3.0.1";   // Version DIESES Bundles (im Server-Bundle hochzählen!)
   // ==========================================================
 
   const Network    = window.Capacitor?.Plugins?.Network;
