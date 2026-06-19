@@ -16,8 +16,8 @@
 // ============================================================
 //  EINSTELLUNGEN
 // ============================================================
-const SERVER_URL = "https://DEINE-DOMAIN.de/app"; // hier liegt das Bundle + version.json
-const MEINE_VERSION = "1.0";                       // Version DIESES Bundles (im Server-Bundle hochzählen!)
+const SERVER_URL = "https://kilianberg.github.io/einkaufsliste"; // hier liegt das Bundle + version.json
+const MEINE_VERSION = "1.1";                       // Version DIESES Bundles (im Server-Bundle hochzählen!)
 // ============================================================
 
 // --- native Plugins (nur in der App vorhanden) ---
