@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Einkaufsliste</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>
+      Einkaufsliste
+    </h1>
+  </header>
+
+  <p id="offline-hinweis">+++ Sie haben keine Internetverbindung +++</p>
+
+  <div class="eingabe">
+    <textarea id="eingabefeld" placeholder="Geben Sie hier einen Artikel ein..."></textarea>
+  </div>
+  <div class="knoepfe">
+    <button id="hinzufuegen">+</button>
+    <button id="kamera">📷</button>
+    <button id="barcode">Barcode scannen</button>
+    <button id="barcode2">Internet benötigt</button>
+  </div>
+
+  <ul id="liste"></ul>
+
+  <button id="Fertig">
+    Fertige Artikel entfernen
+  </button>
+
+  <script src="function.js"></script>
+  <!-- Eigenbau-Updater: lädt ein neues Bundle und schaltet den WebView nativ darauf um -->
+  <script src="updater.js"></script>
+</body>
+</html>

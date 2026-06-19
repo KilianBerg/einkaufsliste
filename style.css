@@ -1,0 +1,136 @@
+/* style.css – hier kommt dein CSS hin */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: #ede8d0;
+}
+
+header {
+  background: #9bbeed;
+  text-align: center;
+  padding-top: calc(env(safe-area-inset-top) + 12px);
+  padding-bottom: 12px;
+}
+
+textarea {
+  flex: 1;          
+  min-width: 0;     
+  resize: none;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-size: 16px;
+  align-content: center;
+}
+
+textarea::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+#hinzufuegen {
+  width: 50px;
+  height: 50px;
+  background: #9bbeed;
+  font-size: large;
+  font-style: bold;
+  border-radius: 10px;
+}
+
+#kamera {
+  width: 50px;
+  height: 50px;
+  background: #9bbeed;
+  font-size: large;
+  font-style: bold;
+  border-radius: 10px;
+}
+
+#barcode {
+  width: 100px;
+  height: 50px;
+  background: #9bbeed;
+  font-size: large;
+  font-style: bold;
+  border-radius: 10px;
+}
+
+#barcode2 {
+  display: none;
+  width: 100px;
+  height: 50px;
+  background: #9bbeed;
+  font-size: large;
+  font-style: bold;
+  border-radius: 10px;
+}
+
+.eingabe {
+  display: flex;
+  justify-content: center;   /* DAS zentriert die Knöpfe waagerecht */
+  gap: 8px;
+  padding: 0 16px;
+  margin: 20px auto;         /* zentriert zusätzlich den Container selbst */
+  max-width: 600px;
+  align-items: center;
+}
+
+.knoepfe {
+  display: flex;
+  justify-content: center;   /* DAS zentriert die Knöpfe waagerecht */
+  gap: 8px;
+  padding: 0 16px;
+  margin: 20px auto;         /* zentriert zusätzlich den Container selbst */
+  max-width: 600px;
+}
+
+li {
+  text-align: center;
+}
+
+input {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+#Fertig {
+  color: red;
+  background: #ede8d0;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+li img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;   /* füllt das Quadrat, ohne zu verzerren */
+  border-radius: 8px;
+  vertical-align: middle;
+}
+
+#offline-hinweis {
+  display: none;            /* normal versteckt */
+  text-align: center;
+  color: red;
+  margin: 10px auto 10px auto;
+}
+
+body.offline #offline-hinweis {
+  display: block;           /* nur offline sichtbar */
+}
+
+body.offline #barcode2 {
+  display: block;           /* nur offline sichtbar */
+}
+
+body.offline #barcode {
+  display: none;           /* nur online sichtbar */
+}
