@@ -134,3 +134,14 @@ body.offline #barcode2 {
 body.offline #barcode {
   display: none;           /* nur online sichtbar */
 }
+
+.minus {
+  background: #4b1e3d;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
